@@ -126,8 +126,13 @@ function repeatString(value, count) {
  *   'I like legends', 'end' => 'I like legs',
  *   'ABABAB','BA' => 'ABAB'
  */
-function removeFirstOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeFirstOccurrences(str, value) {
+  const index = str.indexOf(value);
+
+  if (index === -1) {
+    return str;
+  }
+  return str.slice(0, index) + str.slice(index + value.length);
 }
 
 /**
@@ -175,8 +180,8 @@ function convertToUpperCase(str) {
  *   ],
  *   'info@gmail.com' => ['info@gmail.com']
  */
-function extractEmails(/* str */) {
-  throw new Error('Not implemented');
+function extractEmails(str) {
+  return str.split(';');
 }
 
 /**
@@ -202,8 +207,21 @@ function extractEmails(/* str */) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  const x = '─';
+  const y = '│';
+  const triangleLeftTop = '┌';
+  const triangleRightTop = '┐';
+  const triangleLeftDown = '└';
+  const triangleRigthtDown = '┘';
+
+  const firstString = `${triangleLeftTop + x.repeat(width - 2) + triangleRightTop}\n`;
+
+  const nextString = `${y + ' '.repeat(width - 2) + y}\n`;
+
+  const lastString = `${triangleLeftDown + x.repeat(width - 2) + triangleRigthtDown}\n`;
+
+  return firstString.concat(nextString.repeat(height - 2)).concat(lastString);
 }
 
 
@@ -223,8 +241,16 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  const input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz !?';
+  const output = 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm !?';
+  const newStr = str.split('');
+  let encoded = '';
+  newStr.forEach((letter) => {
+    const indx = input.indexOf(letter);
+    encoded += output[indx];
+  });
+  return encoded;
 }
 
 /**
